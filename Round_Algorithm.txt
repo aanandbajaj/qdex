@@ -1,0 +1,9 @@
+local function round(value,multiple)
+result = multiple;
+
+if value % multiple ~= 0 then
+division = math.floor((value/multiple)+1);
+result = division*multiple;
+end
+return result;
+end
