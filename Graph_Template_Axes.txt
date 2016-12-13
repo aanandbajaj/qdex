@@ -1,0 +1,19 @@
+<style name="blackLine">
+<foreground color="black" />
+</style>
+<xyPlot name="myPlot" pan="disabled" tap="disabled" zoom="disabled">
+<axis dim="y" auto="fixed" min="-5" max="5"></axis>
+<axis dim="x" auto="fixed" min="-5" max="5"></axis>
+<series name="xAxis" manual="true" style="blackLine" />
+<series name="yAxis" manual="true" style="blackLine" />
+</xyPlot>
+<script>
+local xAxis = myPlot.xAxis;
+local yAxis = myPlot.yAxis;
+
+xAxis:Add(-100,0)
+xAxis:Add(100,0)
+
+yAxis:Add(0,-100)
+yAxis:Add(0,100)
+</script>
