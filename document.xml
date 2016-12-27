@@ -123,15 +123,18 @@
               end
                 
               updateEquation()
-              
+                          
                function round(value,multiple)
-                result = multiple;
+                result = 0;
                 
                 if value % multiple ~= 0 then
+                  result = multiple;
                   division = math.floor((value/multiple)+1);
                   result = division*multiple;
+                  return result;
+                else 
+                  return value;
                 end
-                return result;
               end
             ]]>
             </script>
