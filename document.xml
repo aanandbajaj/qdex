@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document xmlns="http://resources.qdexapps.com/schema/v1/QDocument.xsd" name="myDocument" id="GE87DF386_AD9E_42EB_B3C2_6D71EDA31F35">
+
+  <!-- Meta Data -->
+  <metadata>
+    <title>Sinusoidal_Aanand</title>
+    <creator>admin</creator>
+    <abstract>This document is for testing purposes only. The material that is presented here should be treated as an example only.</abstract>
+  </metadata>
+
+  <include src="curriculumThemePack/curriculumStyles.xml" />
+
+  <!--Header and Footer-->
+  <style name="backgroundColor">
+    <background color="50 133 184" />
+  </style>
+  <style name="fontColor">
+    <foreground color="255 255 255" />
+  </style>
+  <header style="backgroundColor">
+    <stack style="center" orientation="horizontal">
+      <p style="fontColor">Amanda Koon</p>
+      <p style="fontColor rightText">MCR3U</p>
+    </stack>
+  </header>
+  <footer style="backgroundColor">
+    <stack orientation="horizontal">
+      <image style="tiny" src="resources/logo1.png" />
+      <p style="fontColor">
+        <style>
+          <numbering suffix="true" counter="pages" />
+          <textAlignment>center</textAlignment>
+          <marginTop>30</marginTop>
+          <foreground color="255 255 255" />
+        </style>
+      </p>
+      <image style="tiny" src="resources/logo2.png" />
+    </stack>
+  </footer>
+
+  <!--Practice-->
+  <section name="Practice">
+    <title style="centerText">Practice Problems</title>
+
+    <stack style="questionAnswer">
+      <p style="title"> QUESTION 1</p>
+      <table name="table" widths="10% 90%" grid="false">
+        <row>
+          <column>
+            <image src="curriculumThemePack\question.png" inspect="false" />
+          </column>
+          <column>
+            <p>A ball is suspended from a spring 20 cm above ground and bounces down to the ground and back up repeatedly.  It takes 4 seconds to complete 5 cycles.</p>
+
+            <p>
+              Q: Find a sinusoidal function that represents the height of the ball in terms of time and graph one cycle of the sinusoid.
+            </p>
+
+            <p>Initial graph: 5 cos (180x) + 5</p>
+            <style name="blackLine">
+              <foreground color="black" />
+            </style>
+            <xyPlot name="myPlot" pan="disabled" tap="disabled" zoom="disabled">
+              <axis dim="y" auto="fixed" min="0" max="25"></axis>
+              <axis dim="x" auto="fixed" min="-0.01" max="5"></axis>
+              <series name="xAxis" manual="true" style="blackLine" />
+              <series name="yAxis" manual="true" style="blackLine" />
+              <series name="cosinePlot" manual="true" />
+            </xyPlot>
+
+            <script>
+              <![CDATA[
+              local xAxis = myPlot.xAxis;
+              local yAxis = myPlot.yAxis;
+
+              xAxis:Add(-100,0)
+              xAxis:Add(100,0)
+
+              yAxis:Add(0,-100)
+              yAxis:Add(0,100)
+              
+                local cos = myPlot.cosinePlot;
+                 a = 5;
+                 c = math.pi;
+                 b = 5;
+      
+                local function redrawCosine()
+                  cos:Clear()
+                  for x = -10, 10, 0.01 do
+                    y = a*math.cos(c*x) + b
+                    cos:Add(x,y)
+                  end
+                  cos:Update()
+                end
+                
+                redrawCosine();
+              ]]>
+            </script>
+
+            <p name="newEquation">
+              <b>Your Answer: 5 cos (180x) + 5</b>
+            </p>
+            <script>
+              <![CDATA[
+                 i = 5;
+                 jValue = 1;
+                 j = ((jValue*math.pi*180)/math.pi);
+                 k = 5;
+              local function updateEquation()
+                newEquation.FormattedText = string.format("<b>Your Answer: %d</b>",i).."<b> cos ("..j.."x) + "..k.."</b>"
+              end
+              
+              function updateAValue(value)
+                i = round(value,1);
+              end
+              
+              function updateKValue(value)
+                j = round(math.floor(((value*math.pi*180)/math.pi)),90);
+              end
+              
+              function updateBValue(value)
+                k = round(value,1)
+              end
+                
+              updateEquation()
+              
+               function round(value,multiple)
+                result = multiple;
+                
+                if value % multiple ~= 0 then
+                  division = math.floor((value/multiple)+1);
+                  result = division*multiple;
+                end
+                return result;
+              end
+            ]]>
+            </script>
+
+            <p name="aLabel">a = 5.00</p>
+            <slider name="aSlider" min="0" max="20" value="5">
+              <onValueChanged>
+                <![CDATA[
+                  a = round(value,1);
+                  aLabel.Text = "a = "..round(value,1)
+                  updateAValue(value);
+                  updateEquation();
+                  redrawCosine()
+                  ]]>
+              </onValueChanged>
+            </slider>
+
+            <p name="dLabel">b = 5.00</p>
+            <slider name="bSlider" min="0" max="20" value="5">
+              <onValueChanged>
+                <![CDATA[
+                  b = round(value,1)
+                  dLabel.Text = "d = "..round(value,1)
+                  updateBValue(value);
+                  updateEquation();
+                  redrawCosine()
+
+                ]]>
+              </onValueChanged>
+            </slider>
+
+            <p name="kLabel">k = 180</p>
+            <slider name="kSlider" min="1" max="10" value="1">
+              <onValueChanged>
+                <![CDATA[
+                  c = round(value*math.pi,math.pi)
+                  redrawCosine()
+                  displayVal = round(((value*math.pi*180)/math.pi),90);
+                  kLabel.FormattedText = string.format("k = %d", (displayVal));
+                  updateKValue(value);
+                  updateEquation();
+                ]]>
+              </onValueChanged>
+            </slider>
+
+          </column>
+        </row>
+      </table>
+      <p style="title">ANSWER</p>
+      <button name="buttonCheck" content="Check Answer">
+        <onClick>
+          text = table:Child(1):Child(2):Child(5).Text
+          text = string.gsub(text, "Your Answer: ", "")
+
+          if text == "10 cos (450x) + 10" then
+          answer.Text = "Correct! Great Job"
+          else
+          answer.Text = "Not quite, Try again!"
+          end
+        </onClick>
+      </button>
+      <p name="answer"></p>
+    </stack>
+  </section>
+</document>
