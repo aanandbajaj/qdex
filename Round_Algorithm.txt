@@ -1,4 +1,3 @@
-updateEquation()
 
 function round(value,multiple)
 result = 0;
