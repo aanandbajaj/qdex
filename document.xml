@@ -56,7 +56,7 @@
               Q: Find a sinusoidal function that represents the height of the ball in terms of time and graph one cycle of the sinusoid.
             </p>
 
-            <p>Initial graph: 5 cos (180x) + 5</p>
+            <p>Initial graph: y = 5 cos (180x) + 5 is in the form of y = a cos (kx) + d</p>
             <style name="blackLine">
               <foreground color="black" />
             </style>
@@ -102,12 +102,12 @@
             </p>
             <script>
               <![CDATA[
-                 i = 5;
-                 jValue = 1;
-                 j = ((jValue*math.pi*180)/math.pi);
-                 k = 5;
+              i = 5;
+              jValue = 1;
+              j = ((jValue*math.pi*180)/math.pi);
+              k = 5;
               local function updateEquation()
-                newEquation.FormattedText = string.format("<b>Your Answer: %d</b>",i).."<b> cos ("..j.."x) + "..k.."</b>"
+                newEquation.FormattedText = string.format("<b>Your Answer: y = %d</b>",i).."<b> cos ("..j.."x) + "..k.."</b>"
               end
               
               function updateAValue(value)
@@ -123,7 +123,7 @@
               end
                 
               updateEquation()
-                          
+                            
                function round(value,multiple)
                 result = 0;
                 
@@ -152,7 +152,7 @@
               </onValueChanged>
             </slider>
 
-            <p name="dLabel">b = 5.00</p>
+            <p name="dLabel">d = 5.00</p>
             <slider name="bSlider" min="0" max="20" value="5">
               <onValueChanged>
                 <![CDATA[
@@ -170,7 +170,7 @@
             <slider name="kSlider" min="1" max="10" value="1">
               <onValueChanged>
                 <![CDATA[
-                  c = round(value*math.pi,math.pi)
+                  c = round(value*math.pi,(math.pi/2))
                   redrawCosine()
                   displayVal = round(((value*math.pi*180)/math.pi),90);
                   kLabel.FormattedText = string.format("k = %d", (displayVal));
@@ -189,7 +189,7 @@
           text = table:Child(1):Child(2):Child(5).Text
           text = string.gsub(text, "Your Answer: ", "")
 
-          if text == "10 cos (450x) + 10" then
+          if text == "y = 10 cos (450x) + 10" then
           answer.Text = "Correct! Great Job"
           else
           answer.Text = "Not quite, Try again!"
